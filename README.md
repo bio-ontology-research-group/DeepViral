@@ -9,7 +9,7 @@ Tensorflow 1.13.1
 ### Directories
 ./models: the code for running the models for Table 2 of the paper.    
 | Models        | Viruses           | Human   |
-| ------------- |:-------------:| -----:|
+| ------------- |:-------------:| :-----:|
 | pheno.py      | Phenotypes | Phenotypes/GO |
 | half_pheno.py      | Phenotypes      |   Phenotypes/GO + Sequences |
 | seq.py | Sequences |   Sequences |
@@ -18,14 +18,14 @@ Tensorflow 1.13.1
 
 ./compare: the code for running the models for Table 1 of the paper
 | Models        | Viruses           | Human   |
-| ------------- |:-------------:| -----:|
+| ------------- |:-------------:| :-----:|
 | seq_compare.py      | Sequences | Sequences |
 | half_compare.py      | Sequences + Phenotypes  |Sequences |
 | joint_compare.py | Phenotypes + Sequences |   Phenotypes/GO + Sequences |
 
 ./analysis: the data and code to generate figure 3 and 4
 | Results        | Scripts           | Inputs   |
-| ------------- |:-------------:| -----:|
+| ------------- |:-------------:| :-----:|
 | Figure 3      | plot.R | hiv.csv, hepac.csv |
 | Figure 4     | plot.R  | familywise.txt |
 | Model for SARS-CoV-2 prediction | pred_sarscov2.py |   Phenotypes/GO + Sequences |
