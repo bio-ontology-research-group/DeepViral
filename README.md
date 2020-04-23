@@ -40,5 +40,4 @@ Tensorflow 1.13.1
 
 ### DL2Vec 
 DL2Vec is available at https://github.com/bio-ontology-research-group/DL2Vec
-
-The input ontologies are available here: [PhenomeNet](http://aber-owl.net/ontology/PhenomeNET/#/), [NCBI Taxonomy](https://www.ebi.ac.uk/ols/ontologies/ncbitaxon)
+The input ontologies to DL2Vec are available here: [PhenomeNet](http://aber-owl.net/ontology/PhenomeNET/#/), [NCBI Taxonomy](https://www.ebi.ac.uk/ols/ontologies/ncbitaxon)
