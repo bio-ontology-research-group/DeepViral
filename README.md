@@ -32,7 +32,13 @@ Tensorflow 1.13.1
 
 ### Datasets
 [HPIDB 3.0](https://hpidb.igbb.msstate.edu/): a database of host pathogen interactions\
+[Dataset of H1N1 and Ebola](http://bclab.inha.ac.kr/VirusHostPPI/): the datasets from the [Zhou et al. 2018](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-4924-2) paper\
 [PathoPhenoDB](http://patho.phenomebrowser.net/#/downloads): a database of pathogen phenotypes\
 [HPO](https://hpo.jax.org/app/download/annotation): phenotype annotations of human genes\
 [MGI](http://www.informatics.jax.org/downloads/reports/index.html#pheno): phenotype annotations of mouse genes and orthologous mappings to human genes\
 [GO](http://current.geneontology.org/products/pages/downloads.html): function annotations of human proteins
+
+### DL2Vec 
+DL2Vec is available at https://github.com/bio-ontology-research-group/DL2Vec
+
+The input ontologies are available here: [PhenomeNet](http://aber-owl.net/ontology/PhenomeNET/#/), [NCBI Taxonomy](https://www.ebi.ac.uk/ols/ontologies/ncbitaxon)
