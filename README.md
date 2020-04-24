@@ -30,7 +30,16 @@ Tensorflow 1.13.1
 | Figure 4     | plot.R  | familywise.txt |
 | Model for SARS-CoV-2 prediction | pred_sarscov2.py |   Phenotypes/GO + Sequences |
 
-./predictions: some example predictions for different virus species (incl. SARS-CoV-2), where top 100 predicted proteins are agregated across proteins. 
+./predictions: some example predictions for different virus species (incl. SARS-CoV-2), where top 100 predicted proteins across viral proteins are agregated for each virus species. 
+| File        | Virus           | NCBITaxon ID   |
+| ------------- |:-------------:| :-----:|
+| ebola.txt      | Ebola virus - Mayinga, Zaire, 1976 | 128952 |
+| flua.txt     | Influenza A virus (A/WSN/1933(H1N1))  | 382835 |
+| hepac.txt | Hepacivirus C |  11103  |
+| hiv1.txt | Human immunodeficiency virus 1 |  11676  |
+| hpv16.txt | Human papillomavirus type 16 |  333760  |
+| sarscov2.txt | Severe acute respiratory syndrome coronavirus 2 |  2697049  |
+| zika.txt | Zika virus | 64320   |
 
 ### Datasets
 [HPIDB 3.0](https://hpidb.igbb.msstate.edu/): a database of host pathogen interactions\
