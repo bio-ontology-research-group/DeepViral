@@ -30,6 +30,8 @@ Tensorflow 1.13.1
 | Figure 4     | plot.R  | familywise.txt |
 | Model for SARS-CoV-2 prediction | pred_sarscov2.py |   Phenotypes/GO + Sequences |
 
+./predictions: some example predictions for different virus species (incl. SARS-CoV-2), where top 100 predicted proteins are agregated across proteins. 
+
 ### Datasets
 [HPIDB 3.0](https://hpidb.igbb.msstate.edu/): a database of host pathogen interactions\
 [Dataset of H1N1 and Ebola](http://bclab.inha.ac.kr/VirusHostPPI/): the datasets from the [Zhou et al. 2018](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-4924-2) paper\
@@ -41,3 +43,4 @@ Tensorflow 1.13.1
 ### DL2Vec 
 DL2Vec is available at https://github.com/bio-ontology-research-group/DL2Vec
 The input ontologies to DL2Vec are available here: [PhenomeNet](http://aber-owl.net/ontology/PhenomeNET/#/), [NCBI Taxonomy](https://www.ebi.ac.uk/ols/ontologies/ncbitaxon)
+
