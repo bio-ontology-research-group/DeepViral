@@ -1,36 +1,31 @@
-# Prediction of novel virus–host interactions by integrating clinical symptoms and protein sequences
-This is the repository for the DeepViral paper, with source code for the models and analysis, as well as the datasets required.
+# Infectious disease phenotypes improve prediction of novel virus--host interactions
+This is the repository for the DeepViral paper, with source code for the models and analysis, as well as the datasets required. Version 2 will be uploaded to Biorxiv soon.
 
 ### Software environment 
 Python 3.6.8   
 Keras 2.2.4  
 Tensorflow 1.13.1  
 
+### To reproduce DeepViral results
+```python3 deepviral.py <option> data/julia_embed_cleaned.txt <tid>
+```
+<option> can be seq/human/viral/joint, corresponding to the four DeepViral variants in Table 1. <tid> can be an arbitrary integer, e.g. 0-4. The prediction results will be in preds_<option>_<tid>.txt.
+After 5 runs, run ```python3 deepviral.py preds_joint_``` to obtain the confidence intervals and mean ranks.
+
 ### Directories
-./models: the code for running the models for Table 2 of the paper.    
-| Models        | Viruses           | Human   |
-| ------------- |:-------------:| :-----:|
-| pheno.py      | Phenotypes | Phenotypes/GO |
-| half_pheno.py      | Phenotypes      |   Phenotypes/GO + Sequences |
-| seq.py | Sequences |   Sequences |
-| half_seq.py | Sequences |   Phenotypes/GO + Sequences |
-| joint.py | Phenotypes + Sequences |   Phenotypes/GO + Sequences |
+./rf and ./rcnn: implementation of Doc2Vec + RF and RCNN on our dataset for the results in Table 1.
+Similarly to the above, the results can be reproduced by 
+```python3 rf.py/rcnn.py <option> data/julia_embed_cleaned.txt <tid>
+```
 
-./compare: the code for running the models for Table 1 of the paper
-| Models        | Viruses           | Human   |
-| ------------- |:-------------:| :-----:|
-| seq_compare.py      | Sequences | Sequences |
-| half_compare.py      | Sequences + Phenotypes  |Sequences |
-| joint_compare.py | Phenotypes + Sequences |   Phenotypes/GO + Sequences |
+./compare_denovo: the code for running DeepViral and RCNN on the DeNovo dataset for Supplementary Table 1.    
+To reproduce the results, run
+```python3 compare_denovo_deepviral/rcnn.py <option> ../data/julia_embed_cleaned.txt
+```
+For rcnn, no option is needed. For DeepViral, option can be seq/viral/joint.
+The input datasets of the DeNovo dataset are downloaded from the websites of [DeNovo](https://bioinformatics.cs.vt.edu/~alzahraa/denovo) by [Eid et al. (2016)](https://academic.oup.com/bioinformatics/article/32/8/1144/1744545) and [VirusHostPPI](http://165.246.44.47/VirusHostPPI/Additional) by [Zhou et al. (2018)](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-4924-2).
 
-./analysis: the data and code to generate figure 3 and 4
-| Results        | Scripts           | Inputs   |
-| ------------- |:-------------:| :-----:|
-| Figure 3      | plot.R | hiv.csv, hepac.csv |
-| Figure 4     | plot.R  | familywise.txt |
-| Model for SARS-CoV-2 prediction | pred_sarscov2.py |   Phenotypes/GO + Sequences |
-
-./predictions: some example predictions for different virus species (incl. SARS-CoV-2), where top 100 predicted proteins across viral proteins are agregated for each virus species. 
+./predictions: some example predictions for different virus species, where top 100 predicted proteins across viral proteins are agregated for each virus species. 
 | File        | Virus           | NCBITaxon ID   |
 | ------------- |:-------------:| :-----:|
 | ebola.txt      | Ebola virus - Mayinga, Zaire, 1976 | 128952 |
@@ -38,12 +33,10 @@ Tensorflow 1.13.1
 | hepac.txt | Hepacivirus C |  11103  |
 | hiv1.txt | Human immunodeficiency virus 1 |  11676  |
 | hpv16.txt | Human papillomavirus type 16 |  333760  |
-| sarscov2.txt | Severe acute respiratory syndrome coronavirus 2 |  2697049  |
 | zika.txt | Zika virus | 64320   |
 
 ### Datasets
 [HPIDB 3.0](https://hpidb.igbb.msstate.edu/): a database of host pathogen interactions\
-[Dataset of H1N1 and Ebola](http://bclab.inha.ac.kr/VirusHostPPI/): the datasets from the [Zhou et al. 2018](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-4924-2) paper\
 [PathoPhenoDB](http://patho.phenomebrowser.net/#/downloads): a database of pathogen phenotypes\
 [HPO](https://hpo.jax.org/app/download/annotation): phenotype annotations of human genes\
 [MGI](http://www.informatics.jax.org/downloads/reports/index.html#pheno): phenotype annotations of mouse genes and orthologous mappings to human genes\
@@ -52,4 +45,5 @@ Tensorflow 1.13.1
 ### DL2Vec 
 DL2Vec is available at https://github.com/bio-ontology-research-group/DL2Vec
 The input ontologies to DL2Vec are available here: [PhenomeNet](http://aber-owl.net/ontology/PhenomeNET/#/), [NCBI Taxonomy](https://www.ebi.ac.uk/ols/ontologies/ncbitaxon)
+To reproduce the embeddings, the association file is provided in ```data/all_asso.txt```.
 
