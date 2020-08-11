@@ -19,13 +19,15 @@ python3 deepviral.py preds_joint_
 to obtain the confidence intervals and mean ranks.
 
 ### Directories
-./rf and ./rcnn: implementation of Doc2Vec + RF and RCNN on our dataset for the results in Table 1.
+#### ./rf and ./rcnn: 
+Implementation of Doc2Vec + RF and RCNN on our dataset for the results in Table 1.
 Similarly to the above, the results can be reproduced by 
 ```
 python3 rf.py/rcnn.py <option> data/julia_embed_cleaned.txt <tid>
 ```
 
-./compare_denovo: the code for running DeepViral and RCNN on the DeNovo dataset for Supplementary Table 1.    
+#### ./compare_denovo: 
+The code for running DeepViral and RCNN on the DeNovo dataset for Supplementary Table 1.    
 To reproduce the results, run
 ```
 python3 compare_denovo_deepviral/rcnn.py <option> ../data/julia_embed_cleaned.txt
@@ -33,7 +35,8 @@ python3 compare_denovo_deepviral/rcnn.py <option> ../data/julia_embed_cleaned.tx
 For rcnn, no option is needed. For DeepViral, option can be seq/viral/joint.
 The input datasets of the DeNovo dataset are downloaded from the websites of [DeNovo](https://bioinformatics.cs.vt.edu/~alzahraa/denovo) by [Eid et al. (2016)](https://academic.oup.com/bioinformatics/article/32/8/1144/1744545) and [VirusHostPPI](http://165.246.44.47/VirusHostPPI/Additional) by [Zhou et al. (2018)](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-4924-2).
 
-./predictions: some example predictions for different virus species, where top 100 predicted proteins across viral proteins are agregated for each virus species. 
+#### ./predictions: 
+Some example predictions for different virus species, where top 100 predicted proteins across viral proteins are agregated for each virus species. 
 | File        | Virus           | NCBITaxon ID   |
 | ------------- |:-------------:| :-----:|
 | ebola.txt      | Ebola virus - Mayinga, Zaire, 1976 | 128952 |
