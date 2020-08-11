@@ -7,7 +7,8 @@ Keras 2.2.4
 Tensorflow 1.13.1  
 
 ### To reproduce DeepViral results
-```python3 deepviral.py <option> data/julia_embed_cleaned.txt <tid>
+```
+python3 deepviral.py <option> data/julia_embed_cleaned.txt <tid>
 ```
 <option> can be seq/human/viral/joint, corresponding to the four DeepViral variants in Table 1. <tid> can be an arbitrary integer, e.g. 0-4. The prediction results will be in preds_<option>_<tid>.txt.
 After 5 runs, run ```python3 deepviral.py preds_joint_``` to obtain the confidence intervals and mean ranks.
@@ -15,12 +16,14 @@ After 5 runs, run ```python3 deepviral.py preds_joint_``` to obtain the confiden
 ### Directories
 ./rf and ./rcnn: implementation of Doc2Vec + RF and RCNN on our dataset for the results in Table 1.
 Similarly to the above, the results can be reproduced by 
-```python3 rf.py/rcnn.py <option> data/julia_embed_cleaned.txt <tid>
+```
+python3 rf.py/rcnn.py <option> data/julia_embed_cleaned.txt <tid>
 ```
 
 ./compare_denovo: the code for running DeepViral and RCNN on the DeNovo dataset for Supplementary Table 1.    
 To reproduce the results, run
-```python3 compare_denovo_deepviral/rcnn.py <option> ../data/julia_embed_cleaned.txt
+```
+python3 compare_denovo_deepviral/rcnn.py <option> ../data/julia_embed_cleaned.txt
 ```
 For rcnn, no option is needed. For DeepViral, option can be seq/viral/joint.
 The input datasets of the DeNovo dataset are downloaded from the websites of [DeNovo](https://bioinformatics.cs.vt.edu/~alzahraa/denovo) by [Eid et al. (2016)](https://academic.oup.com/bioinformatics/article/32/8/1144/1744545) and [VirusHostPPI](http://165.246.44.47/VirusHostPPI/Additional) by [Zhou et al. (2018)](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-4924-2).
