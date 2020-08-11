@@ -1,5 +1,5 @@
 # Infectious disease phenotypes improve prediction of novel virus--host interactions
-This is the repository for the DeepViral paper, with source code for the models and analysis, as well as the datasets required. Version 2 will be uploaded to Biorxiv soon.
+This is the repository for the DeepViral paper, with source code for the models and analysis, as well as the datasets required. Version 2 will be uploaded to Biorxiv soon. Please contact liuwei.wang@kaust.edu.sa for any questions regarding the code and the manuscript.
 
 ### Software environment 
 Python 3.6.8   
@@ -57,4 +57,3 @@ Some example predictions for different virus species, where top 100 predicted pr
 DL2Vec is available at https://github.com/bio-ontology-research-group/DL2Vec
 The input ontologies to DL2Vec are available here: [PhenomeNet](http://aber-owl.net/ontology/PhenomeNET/#/), [NCBI Taxonomy](https://www.ebi.ac.uk/ols/ontologies/ncbitaxon)
 To reproduce the embeddings, the association file is provided in ```data/all_asso.txt```.
-
