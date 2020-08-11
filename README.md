@@ -10,8 +10,13 @@ Tensorflow 1.13.1
 ```
 python3 deepviral.py <option> data/julia_embed_cleaned.txt <tid>
 ```
-<option> can be seq/human/viral/joint, corresponding to the four DeepViral variants in Table 1. <tid> can be an arbitrary integer, e.g. 0-4. The prediction results will be in preds_<option>_<tid>.txt.
-After 5 runs, run ```python3 deepviral.py preds_joint_``` to obtain the confidence intervals and mean ranks.
+<option> can be seq/human/viral/joint, corresponding to the four DeepViral variants in Table 1. 
+<tid> can be an arbitrary integer, e.g. 0-4. The prediction results will be in preds_<option>_<tid>.txt.
+After 5 runs, run 
+```
+python3 deepviral.py preds_joint_
+``` 
+to obtain the confidence intervals and mean ranks.
 
 ### Directories
 ./rf and ./rcnn: implementation of Doc2Vec + RF and RCNN on our dataset for the results in Table 1.
