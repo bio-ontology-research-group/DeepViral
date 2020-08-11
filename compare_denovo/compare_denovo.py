@@ -81,7 +81,7 @@ for split in splits:
             vs = vs[:MAXLEN]
         if option == "joint" and (hp not in embed_dict or vp not in vp2taxon or vp2taxon[vp] not in embed_dict):
             continue
-        if option == 'pheno' and (vp not in vp2taxon or vp2taxon[vp] not in embed_dict):
+        if option == 'viral' and (vp not in vp2taxon or vp2taxon[vp] not in embed_dict):
             continue
         prot2embed[hp] = to_onehot(hs, haaindex)
         prot2embed[vp] = to_onehot(vs, vaaindex)
@@ -126,7 +126,7 @@ for i in range(5):
         seq1, pheno1, flat1 = get_joint_model(params)
         seq2, pheno2, flat2 = get_joint_model(params)
         inputs=[seq1, seq2, pheno1, pheno2]
-    elif option =="pheno":
+    elif option =="viral":
         seq1, flat1 = get_seq_model(params)
         seq2, pheno2, flat2 = get_joint_model(params)
         flat2 = Dense(8)(flat2)
