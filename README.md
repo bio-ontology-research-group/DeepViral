@@ -1,4 +1,4 @@
-# Infectious disease phenotypes improve prediction of novel virus--host interactions
+# DeepViral: infectious disease phenotypes improve prediction of novel virus--host interactions
 This is the repository for the DeepViral paper, with source code for the models and analysis, as well as the datasets required. \
 Version 2 will be uploaded to Biorxiv soon. \
 Please contact liuwei.wang@kaust.edu.sa for any questions regarding the code and the manuscript.
