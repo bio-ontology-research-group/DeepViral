@@ -1,5 +1,7 @@
 # Infectious disease phenotypes improve prediction of novel virus--host interactions
-This is the repository for the DeepViral paper, with source code for the models and analysis, as well as the datasets required. Version 2 will be uploaded to Biorxiv soon. Please contact liuwei.wang@kaust.edu.sa for any questions regarding the code and the manuscript.
+This is the repository for the DeepViral paper, with source code for the models and analysis, as well as the datasets required. \
+Version 2 will be uploaded to Biorxiv soon. \
+Please contact liuwei.wang@kaust.edu.sa for any questions regarding the code and the manuscript.
 
 ### Software environment 
 Python 3.6.8   
@@ -10,8 +12,8 @@ Tensorflow 1.13.1
 ```
 python3 deepviral.py <option> data/julia_embed_cleaned.txt <tid>
 ```
-option can be seq/human/viral/joint, corresponding to the four DeepViral variants in Table 1. \
-tid can be an arbitrary integer, e.g. 0-4. The prediction results will be in preds_option_tid.txt.\
+Option can be seq/human/viral/joint, corresponding to the four DeepViral variants in Table 1. \
+Tid can be an arbitrary integer, e.g. 0-4. The prediction results will be in ```preds_option_tid.txt```.\
 After 5 runs, run 
 ```
 python3 deepviral.py preds_joint_
@@ -20,14 +22,14 @@ to obtain the confidence intervals and mean ranks.
 
 ### Directories
 #### ./rf and ./rcnn: 
-Implementation of Doc2Vec + RF and RCNN on our dataset for the results in Table 1.
+Implementation of Doc2Vec + RF and RCNN on our dataset for the results in Table 1.\
 Similarly to the above, the results can be reproduced by 
 ```
 python3 rf.py/rcnn.py <option> data/julia_embed_cleaned.txt <tid>
 ```
 
 #### ./compare_denovo: 
-The code for running DeepViral and RCNN on the DeNovo dataset for Supplementary Table 1.    
+The code for running DeepViral and RCNN on the DeNovo dataset for Supplementary Table 1.\
 To reproduce the results, run
 ```
 python3 compare_denovo_deepviral/rcnn.py <option> ../data/julia_embed_cleaned.txt
@@ -54,6 +56,6 @@ Some example predictions for different virus species, where top 100 predicted pr
 [GO](http://current.geneontology.org/products/pages/downloads.html): function annotations of human proteins
 
 ### DL2Vec 
-DL2Vec is available at https://github.com/bio-ontology-research-group/DL2Vec
-The input ontologies to DL2Vec are available here: [PhenomeNet](http://aber-owl.net/ontology/PhenomeNET/#/), [NCBI Taxonomy](https://www.ebi.ac.uk/ols/ontologies/ncbitaxon)
+DL2Vec is available at https://github.com/bio-ontology-research-group/DL2Vec\
+The input ontologies to DL2Vec are available here: [PhenomeNet](http://aber-owl.net/ontology/PhenomeNET/#/), [NCBI Taxonomy](https://www.ebi.ac.uk/ols/ontologies/ncbitaxon)\
 To reproduce the embeddings, the association file is provided in ```data/all_asso.txt```.
