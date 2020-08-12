@@ -26,10 +26,14 @@ def get_generators(triple_train, triple_val, triple_test, batch_size, prot2embed
         generator = joint_Generator(triple_train[:,0:3], triple_train[:,3], batch_size, prot2embed, embed_dict)
         val_generator = joint_Generator(triple_val[:,0:3], triple_val[:,3], batch_size, prot2embed, embed_dict)
         test_generator = joint_Generator(triple_test[:,0:3], triple_test[:,3], batch_size, prot2embed, embed_dict)
-    elif option == "pheno":
+    elif option == "viral":
         generator = pheno_Generator(triple_train[:,0:3], triple_train[:,3], batch_size, prot2embed, embed_dict)
         val_generator = pheno_Generator(triple_val[:,0:3], triple_val[:,3], batch_size, prot2embed, embed_dict)
         test_generator = pheno_Generator(triple_test[:,0:3], triple_test[:,3], batch_size, prot2embed, embed_dict)
+    elif option == "human":
+        generator = human_Generator(triple_train[:,0:3], triple_train[:,3], batch_size, prot2embed, embed_dict)
+        val_generator = human_Generator(triple_val[:,0:3], triple_val[:,3], batch_size, prot2embed, embed_dict)
+        test_generator = human_Generator(triple_test[:,0:3], triple_test[:,3], batch_size, prot2embed, embed_dict)
     return generator, val_generator, test_generator
 
 def get_seq_model(params,MAXLEN = 1000):
@@ -194,3 +198,31 @@ class pheno_Generator(Sequence):
             x_pheno2[ids-start,:] = self.embed_dict[self.x[ids][2]]
             y_batch[ids-start] = self.y[ids]
         return [x_seq1, x_seq2, x_pheno2], y_batch
+
+class human_Generator(Sequence):
+    def __init__(self, x_set, y_set, batch_size, prot2embed, embed_dict):
+        self.x, self.y = x_set, y_set
+        self.batch_size = batch_size
+        self.nbatch = int(np.ceil(len(self.x) / self.batch_size))
+        self.length = len(self.x)
+        self.prot2embed = prot2embed
+        self.embed_dict = embed_dict
+        self.dim_input = 100
+
+    def __len__(self):
+        return self.nbatch
+
+    def __getitem__(self, idx):
+        start = idx * self.batch_size
+        batch_len = min(self.batch_size, (self.length)-start)
+        x_seq1 = np.empty((batch_len, 1000,22), dtype=np.float32)
+        x_seq2 = np.empty((batch_len, 1000,22), dtype=np.float32)
+        x_pheno1 = np.empty((batch_len, self.dim_input), dtype=np.float32)
+        y_batch = np.empty(batch_len, dtype=np.float32)
+
+        for ids in range(start, min((idx + 1) * self.batch_size, self.length)):
+            x_seq1[ids-start,:,:] = self.prot2embed[self.x[ids][0]]
+            x_seq2[ids-start,:,:] = self.prot2embed[self.x[ids][1]]
+            x_pheno1[ids-start,:] = self.embed_dict[self.x[ids][0]]
+            y_batch[ids-start] = self.y[ids]
+        return [x_seq1, x_seq2, x_pheno1], y_batch

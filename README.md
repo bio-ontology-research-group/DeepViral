@@ -32,7 +32,7 @@ To reproduce the results, run
 ```
 python3 compare_denovo_deepviral/rcnn.py <option> ../data/julia_embed_cleaned.txt
 ```
-For rcnn, no option is needed. For DeepViral, option can be seq/viral/joint.
+For rcnn, no option is needed. For DeepViral, option can be seq/human/viral/joint.
 The input datasets of the DeNovo dataset are downloaded from the websites of [DeNovo](https://bioinformatics.cs.vt.edu/~alzahraa/denovo) by [Eid et al. (2016)](https://academic.oup.com/bioinformatics/article/32/8/1144/1744545) and [VirusHostPPI](http://165.246.44.47/VirusHostPPI/Additional) by [Zhou et al. (2018)](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-4924-2).
 
 #### ./predictions: 

@@ -83,9 +83,11 @@ for split in splits:
             continue
         if option == 'viral' and (vp not in vp2taxon or vp2taxon[vp] not in embed_dict):
             continue
+        if option == "human" and hp not in embed_dict:
+            continue
         prot2embed[hp] = to_onehot(hs, haaindex)
         prot2embed[vp] = to_onehot(vs, vaaindex)
-        if option == 'seq' and vp not in vp2taxon:
+        if option in ['seq', 'human'] and vp not in vp2taxon:
             vp2taxon[vp] = 'dummy'
         if "training" in split:
             if 'positive' in split:
@@ -133,6 +135,14 @@ for i in range(5):
         flat2 = LeakyReLU(alpha=0.1)(flat2)
         flat2 = Dropout(0.5)(flat2)
         inputs=[seq1, seq2, pheno2]
+    elif option =="human":
+        seq1, pheno1, flat1 = get_joint_model(params)
+        seq2, flat2 = get_seq_model(params)
+        flat1 = Dense(8)(flat1)
+        flat1 = LeakyReLU(alpha=0.1)(flat1)
+        flat1 = Dropout(0.5)(flat1)
+        inputs=[seq1, seq2, pheno1]
+
     concat = Dot(axes=-1, normalize=True)([flat1,flat2])
     output = Dense(1, activation='sigmoid', name='dense_out')(concat)
 
