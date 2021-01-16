@@ -19,21 +19,26 @@ from utils import *
 from models import *
 
 MAXLEN = 1000
-epochs = 5
+epochs = 30
 num_gpus = 1
 batch_size = 1500*num_gpus
-steps = 1000
+steps = 500
 
 thres = '0'
 option = sys.argv[1]
-tid = sys.argv[3]
 embedding_file = sys.argv[2]
-print("option: ", option, "threshold: ", thres)
-corona_interactions = 'data/media-6.xlsx'
-corona_sequences = 'data/2020-04-krogan-sarscov2-sequences-uniprot-mapping.xlsx'
+taxon1 = sys.argv[3]
+taxon2 = sys.argv[4]
+taxon3 = sys.argv[5]
+cv = sys.argv[6]
+tid = sys.argv[7]
 
-model_file = f'model_covid19_{option}_{tid}.h5'
-preds_file = f'preds_covid19_{option}_{tid}.txt'
+print("option: ", option, "threshold: ", thres)
+sars2_interactions = 'data/media-6.xlsx'
+sars2_sequences = 'data/2020-04-krogan-sarscov2-sequences-uniprot-mapping.xlsx'
+
+model_file = f'model_{option}_t{taxon1}_v{taxon2}_{cv}_{tid}.h5'
+preds_file = f'preds_{option}_t{taxon1}_v{taxon2}_{cv}_{tid}.txt'
 open_preds = open(preds_file, "w")
 open_preds.close()
 
@@ -43,8 +48,8 @@ hpi_file = 'data/train_1000.txt'
 params = get_params()
 
 haaindex, vaaindex = get_aaindex(swissprot_file, hpi_file)
-print("The amino acids for human are ", list(haaindex))
-print("The amino acids for viruses are ", list(vaaindex))
+# print("The amino acids for human are ", list(haaindex))
+# print("The amino acids for viruses are ", list(vaaindex))
 embed_dict = read_embedding(embedding_file)
 hp_set, prot2embed = read_swissprot(swissprot_file, embed_dict, haaindex, first = False)
 
@@ -55,6 +60,10 @@ family2vp = {}
 vp2patho = {}
 vp2numPos = {}
 
+test_taxon = "<http://purl.obolibrary.org/obo/NCBITaxon_" + taxon1 + ">"
+val_taxon = "<http://purl.obolibrary.org/obo/NCBITaxon_" + taxon2 + ">"
+original_family = "<http://purl.obolibrary.org/obo/NCBITaxon_" + taxon3 + ">"
+taxon2count = {}
 with open(hpi_file, 'r') as f:
     next(f)
     for line in f:
@@ -70,8 +79,10 @@ with open(hpi_file, 'r') as f:
             if len(items[5]) > MAXLEN:
                 continue
             family = '<http://purl.obolibrary.org/obo/NCBITaxon_' + items[3] + '>'
-            if family == '<http://purl.obolibrary.org/obo/NCBITaxon_11118>':
-                continue
+            if patho == test_taxon:
+                family = "<http://purl.obolibrary.org/obo/NCBITaxon_test>"
+            if cv == "species" and patho == val_taxon:
+                family = "<http://purl.obolibrary.org/obo/NCBITaxon_val>"
             prot2embed[vp] = to_onehot(items[5], vaaindex)
             family_dict[patho] = family
             positives.add((hp, vp, patho, family))
@@ -84,22 +95,6 @@ with open(hpi_file, 'r') as f:
                 vp2numPos[vp] = 0
             vp2numPos[vp] += 1
 
-dfs_interaction = pd.read_excel(corona_interactions, sheet_name = None, skiprows=1)
-for index, row in dfs_interaction["Sheet1"].iterrows():
-    hp = row['Preys']
-    vp = row['Bait']
-    patho = '<http://purl.obolibrary.org/obo/NCBITaxon_2697049>'
-    family = '<http://purl.obolibrary.org/obo/NCBITaxon_11118>'
-    if hp not in embed_dict or hp not in prot2embed:
-            continue
-    family_dict[patho] = family
-    positives.add((hp, vp, patho, family))
-    pathogens.add(patho)
-    if family not in family2vp:
-        family2vp[family] = set()
-    family2vp[family].add(vp)
-    vp2patho[vp] = patho
-    
 vp_set = set(vp2patho.keys())
 families = set(family2vp.keys())
 print('Number of positives: ', len(positives))
@@ -107,33 +102,35 @@ print('Number of pathogens: ', len(pathogens))
 print('Number of families: ', len(families))
 print('Number of viral proteins: ', len(vp_set))
 
-dfs_seq = pd.read_excel(corona_sequences)
-for index, row in dfs_seq.iterrows():
-    vp = row['Krogan name']
-    seq = row['Sequence']
-    if '*' == seq[len(seq)-1]:
-        seq = seq[:len(seq)-1]
-    prot2embed[vp] = to_onehot(seq, vaaindex)
-    
 config = tf.ConfigProto()
 sess = tf.Session(config=config)
 K.set_session(sess)
 
 counter = 0
 family_aucs = []
-for test_family in ["<http://purl.obolibrary.org/obo/NCBITaxon_11118>"]:
+
+for test_family in ["<http://purl.obolibrary.org/obo/NCBITaxon_test>"]:
     counter+=1
     K.clear_session()
     print('Test family %d: %s' % (counter, test_family))
-    tv_families = list(families - set([test_family]))
-    val_families = set(np.random.choice(tv_families, size = int(len(tv_families)/5), replace=False))
-    train_families = set(tv_families) - val_families
+    
+    if cv == "family":
+        tv_families = list(families - set([test_family, "<http://purl.obolibrary.org/obo/NCBITaxon_val>", original_family]))
+        val_families = set(np.random.choice(tv_families, size = int(len(tv_families)/5), replace=False))
+        train_families = set(tv_families) - val_families
+    elif cv == "species":
+        tv_families = list(families - set([test_family]))
+        val_families = set(["<http://purl.obolibrary.org/obo/NCBITaxon_val>"])
+        train_families = set(tv_families) - val_families
+    
     print('Train families: ', len(train_families), 'validation families', len(val_families))
 
     train_vps = set()
     for family in train_families:
         train_vps = train_vps | family2vp[family]
-    val_vps = vp_set - family2vp[test_family] - train_vps
+    val_vps = set()
+    for family in val_families:
+        val_vps = val_vps | family2vp[family]
     print("Number of viral proteins in train, val and test: ", len(train_vps), len(val_vps), len(family2vp[test_family]))
     
     triple_train = get_triple(positives, train_families, hp_set, train_vps, vp2patho, 'train')
@@ -174,7 +171,7 @@ for test_family in ["<http://purl.obolibrary.org/obo/NCBITaxon_11118>"]:
         
     model.compile(
         loss='binary_crossentropy',
-        optimizer=Adam(),
+        optimizer=Adam(lr=0.0005),
         metrics=['accuracy'])
 
     val_maxauc = 0
@@ -200,6 +197,15 @@ for test_family in ["<http://purl.obolibrary.org/obo/NCBITaxon_11118>"]:
             print('Saving current model...')
             model.save(model_file)
             val_maxauc = val_auc
+        
+        y_score = model.predict_generator(generator=test_gen,
+                                    verbose=2,steps=np.ceil(len(triple_test)/batch_size), 
+                                    max_queue_size = 30, use_multiprocessing=False, workers = 1)
+
+        y_true = np.concatenate((np.ones(numPos_test), np.zeros(len(triple_test) - numPos_test)))
+        auprc = average_precision_score(y_true, y_score)
+        test_auc = roc_auc_score(y_true, y_score)
+        print("ROCAUC: %.4f, AUPRC: %.4f" % (test_auc, auprc))
 
     del model
     K.clear_session()
@@ -219,22 +225,3 @@ for test_family in ["<http://purl.obolibrary.org/obo/NCBITaxon_11118>"]:
             f.write("%s\t%s\t%s\t%s\t%f\t%s\n" % (triple_test[i,1], triple_test[i,0], triple_test[i,2], test_family, y_score[i], i<numPos_test))
     
 print("Mean ROCAUC of test families: %.4f" % (np.mean(family_aucs)))
-
-
-        
-#         y_true = y_true[:2*numPos_test]
-#         y_score_pos = y_score[:numPos_test]
-#         y_score_neg = y_score[numPos_test:]
-#         np.random.shuffle(y_score_neg)
-#         y_score = np.concatenate((y_score_pos, y_score_neg[:numPos_test]))
-        
-#         y_pred_label = np.zeros(len(y_score))
-#         y_pred_label[np.where(y_score.flatten() >= 0.5)] = 1
-#         y_pred_label[np.where(y_score.flatten() < 0.5)] = 0
-
-#         acc = accuracy_score(y_true, y_pred_label)
-#         prec = precision_score(y_true, y_pred_label)
-#         recall = recall_score(y_true, y_pred_label)
-
-#         print("Accuracy: %.4f, Precision: %.4f, Recall: %.4f, ROCAUC: %.4f, AUPRC: %.4f" % (acc*100, prec*100, recall*100, test_auc, auprc))
-        
