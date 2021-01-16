@@ -9,6 +9,7 @@ Keras 2.2.4
 Tensorflow 1.13.1  
 
 ### To reproduce DeepViral results
+#### Leave-One-Family-Out (LOFO)
 ```
 python3 deepviral.py <option> data/julia_embed_cleaned.txt <tid>
 ```
@@ -19,6 +20,18 @@ After 5 runs, run
 python3 deepviral.py preds_joint_
 ``` 
 to obtain the confidence intervals and mean ranks.
+
+#### Leave-One-Species-Out (LOSO)
+For Zika/Influenza/HPV, run
+```
+python3 deepviral_taxon_sars2.py joint data/julia_embed_cleaned.txt <test taxon ID> <val taxon ID> <family taxon ID> <evaluation> <tid>
+```
+Evaluation can be species or family, i.e. LOSO or LOFO, respectively.
+
+For SARS-CoV-2, run
+```
+python3 deepviral_taxon_sars2.py joint data/julia_embed_cleaned.txt 2697049 694009 11118 species/family <tid>
+```
 
 ### Directories
 #### ./rf and ./rcnn: 
@@ -36,17 +49,6 @@ python3 compare_denovo_deepviral/rcnn.py <option> ../data/julia_embed_cleaned.tx
 ```
 For rcnn, no option is needed. For DeepViral, option can be seq/human/viral/joint.
 The input datasets of the DeNovo dataset are downloaded from the websites of [DeNovo](https://bioinformatics.cs.vt.edu/~alzahraa/denovo) by [Eid et al. (2016)](https://academic.oup.com/bioinformatics/article/32/8/1144/1744545) and [VirusHostPPI](http://165.246.44.47/VirusHostPPI/Additional) by [Zhou et al. (2018)](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-4924-2).
-
-#### ./predictions: 
-Some example predictions for different virus species, where top 100 predicted proteins across viral proteins are agregated for each virus species. 
-| File        | Virus           | NCBITaxon ID   |
-| ------------- |:-------------:| :-----:|
-| ebola.txt      | Ebola virus - Mayinga, Zaire, 1976 | 128952 |
-| flua.txt     | Influenza A virus (A/WSN/1933(H1N1))  | 382835 |
-| hepac.txt | Hepacivirus C |  11103  |
-| hiv1.txt | Human immunodeficiency virus 1 |  11676  |
-| hpv16.txt | Human papillomavirus type 16 |  333760  |
-| zika.txt | Zika virus | 64320   |
 
 ### Datasets
 [HPIDB 3.0](https://hpidb.igbb.msstate.edu/): a database of host pathogen interactions\
