@@ -1,6 +1,6 @@
-# DeepViral: prediction of novel virus–hostinteractions from protein sequences and infectiousdisease phenotypes
-This is the repository for the DeepViral paper, with source code for the models and analysis, as well as the datasets required. \
-The manuscript is now available on [Biorxiv](http://biorxiv.org/content/10.1101/2020.04.22.055095v2). \
+# DeepViral: prediction of novel virus–host interactions from protein sequences and infectious disease phenotypes
+
+This is the repository for the DeepViral paper, with source code for the models and analysis, as well as the datasets required.
 Please contact liuwei.wang@kaust.edu.sa for any questions regarding the code and the manuscript.
 
 ### Software environment 
@@ -61,3 +61,25 @@ The input datasets of the DeNovo dataset are downloaded from the websites of [De
 DL2Vec is available at https://github.com/bio-ontology-research-group/DL2Vec\
 The input ontologies to DL2Vec are available here: [PhenomeNet](http://aber-owl.net/ontology/PhenomeNET/#/), [NCBI Taxonomy](https://www.ebi.ac.uk/ols/ontologies/ncbitaxon)\
 To reproduce the embeddings, the association file is provided in ```data/all_asso.txt```.
+
+## Cite
+If you use DeepViral for your research, please cite our [paper](https://academic.oup.com/bioinformatics/article/36/2/422/5539866) in Bioinformatics:
+```
+@article{10.1093/bioinformatics/btz595,
+    author = {Kulmanov, Maxat and Hoehndorf, Robert},
+    title = "{DeepGOPlus: improved protein function prediction from sequence}",
+    journal = {Bioinformatics},
+    volume = {36},
+    number = {2},
+    pages = {422-429},
+    year = {2019},
+    month = {07},
+    abstract = {Protein function prediction is one of the major tasks of bioinformatics that can help in wide range of biological problems such as understanding disease mechanisms or finding drug targets. Many methods are available for predicting protein functions from sequence based features, protein–protein interaction networks, protein structure or literature. However, other than sequence, most of the features are difficult to obtain or not available for many proteins thereby limiting their scope. Furthermore, the performance of sequence-based function prediction methods is often lower than methods that incorporate multiple features and predicting protein functions may require a lot of time.We developed a novel method for predicting protein functions from sequence alone which combines deep convolutional neural network (CNN) model with sequence similarity based predictions. Our CNN model scans the sequence for motifs which are predictive for protein functions and combines this with functions of similar proteins (if available). We evaluate the performance of DeepGOPlus using the CAFA3 evaluation measures and achieve an Fmax of 0.390, 0.557 and 0.614 for BPO, MFO and CCO evaluations, respectively. These results would have made DeepGOPlus one of the three best predictors in CCO and the second best performing method in the BPO and MFO evaluations. We also compare DeepGOPlus with state-of-the-art methods such as DeepText2GO and GOLabeler on another dataset. DeepGOPlus can annotate around 40 protein sequences per second on common hardware, thereby making fast and accurate function predictions available for a wide range of proteins.http://deepgoplus.bio2vec.net/.Supplementary data are available at Bioinformatics online.},
+    issn = {1367-4803},
+    doi = {10.1093/bioinformatics/btz595},
+    url = {https://doi.org/10.1093/bioinformatics/btz595},
+    eprint = {https://academic.oup.com/bioinformatics/article-pdf/36/2/422/31962785/btz595.pdf},
+}
+
+```
+
