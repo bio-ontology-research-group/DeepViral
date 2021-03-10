@@ -63,23 +63,20 @@ The input ontologies to DL2Vec are available here: [PhenomeNet](http://aber-owl.
 To reproduce the embeddings, the association file is provided in ```data/all_asso.txt```.
 
 ## Cite
-If you use DeepViral for your research, please cite our [paper](https://academic.oup.com/bioinformatics/article/36/2/422/5539866) in Bioinformatics:
+If you use DeepViral for your research, please cite our [paper](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btab147/6158034) in Bioinformatics:
 ```
-@article{10.1093/bioinformatics/btz595,
-    author = {Kulmanov, Maxat and Hoehndorf, Robert},
-    title = "{DeepGOPlus: improved protein function prediction from sequence}",
+@article{10.1093/bioinformatics/btab147,
+    author = {Liu-Wei, Wang and Kafkas, Şenay and Chen, Jun and Dimonaco, Nicholas J and Tegnér, Jesper and Hoehndorf, Robert},
+    title = "{DeepViral: prediction of novel virus–host interactions from protein sequences and infectious disease phenotypes}",
     journal = {Bioinformatics},
-    volume = {36},
-    number = {2},
-    pages = {422-429},
-    year = {2019},
-    month = {07},
-    abstract = {Protein function prediction is one of the major tasks of bioinformatics that can help in wide range of biological problems such as understanding disease mechanisms or finding drug targets. Many methods are available for predicting protein functions from sequence based features, protein–protein interaction networks, protein structure or literature. However, other than sequence, most of the features are difficult to obtain or not available for many proteins thereby limiting their scope. Furthermore, the performance of sequence-based function prediction methods is often lower than methods that incorporate multiple features and predicting protein functions may require a lot of time.We developed a novel method for predicting protein functions from sequence alone which combines deep convolutional neural network (CNN) model with sequence similarity based predictions. Our CNN model scans the sequence for motifs which are predictive for protein functions and combines this with functions of similar proteins (if available). We evaluate the performance of DeepGOPlus using the CAFA3 evaluation measures and achieve an Fmax of 0.390, 0.557 and 0.614 for BPO, MFO and CCO evaluations, respectively. These results would have made DeepGOPlus one of the three best predictors in CCO and the second best performing method in the BPO and MFO evaluations. We also compare DeepGOPlus with state-of-the-art methods such as DeepText2GO and GOLabeler on another dataset. DeepGOPlus can annotate around 40 protein sequences per second on common hardware, thereby making fast and accurate function predictions available for a wide range of proteins.http://deepgoplus.bio2vec.net/.Supplementary data are available at Bioinformatics online.},
+    year = {2021},
+    month = {03},
+    abstract = "{Infectious diseases caused by novel viruses have become a major public health concern. Rapid identification of virus–host interactions can reveal mechanistic insights into infectious diseases and shed light on potential treatments. Current computational prediction methods for novel viruses are based mainly on protein sequences. However, it is not clear to what extent other important features, such as the symptoms caused by the viruses, could contribute to a predictor. Disease phenotypes (i.e., signs and symptoms) are readily accessible from clinical diagnosis and we hypothesize that they may act as a potential proxy and an additional source of information for the underlying molecular interactions between the pathogens and hosts.We developed DeepViral, a deep learning based method that predicts protein–protein interactions (PPI) between humans and viruses. Motivated by the potential utility of infectious disease phenotypes, we first embedded human proteins and viruses in a shared space using their associated phenotypes and functions, supported by formalized background knowledge from biomedical ontologies. By jointly learning from protein sequences and phenotype features, DeepViral significantly improves over existing sequence-based methods for intra- and inter-species PPI prediction.Code and datasets for reproduction and customization are available at https://github.com/bio-ontology-research-group/DeepViral. Prediction results for 14 virus families are available at https://doi.org/10.5281/zenodo.4429824.}",
     issn = {1367-4803},
-    doi = {10.1093/bioinformatics/btz595},
-    url = {https://doi.org/10.1093/bioinformatics/btz595},
-    eprint = {https://academic.oup.com/bioinformatics/article-pdf/36/2/422/31962785/btz595.pdf},
+    doi = {10.1093/bioinformatics/btab147},
+    url = {https://doi.org/10.1093/bioinformatics/btab147},
+    note = {btab147},
+    eprint = {https://academic.oup.com/bioinformatics/advance-article-pdf/doi/10.1093/bioinformatics/btab147/36450100/btab147.pdf},
 }
-
 ```
 
