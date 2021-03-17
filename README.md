@@ -24,7 +24,7 @@ to obtain the confidence intervals and mean ranks.
 #### Leave-One-Species-Out (LOSO)
 For Zika/Influenza/HPV, run
 ```
-python3 deepviral_taxon_sars2.py joint data/julia_embed_cleaned.txt <test taxon ID> <val taxon ID> <family taxon ID> <evaluation> <tid>
+python3 deepviral_taxon.py joint data/julia_embed_cleaned.txt <test taxon ID> <val taxon ID> <family taxon ID> <evaluation> <tid>
 ```
 Evaluation can be species or family, i.e. LOSO or LOFO, respectively.
 
